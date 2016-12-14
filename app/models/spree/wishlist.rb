@@ -1,5 +1,5 @@
 class Spree::Wishlist < ActiveRecord::Base
-  belongs_to :user, class_name: Spree.user_class
+  belongs_to :account, class_name: Spree.user_class
   has_many :wished_products, dependent: :destroy
   before_create :set_access_hash
 
@@ -18,13 +18,13 @@ class Spree::Wishlist < ActiveRecord::Base
   end
 
   def can_be_read_by?(user)
-    !self.is_private? || user == self.user
+    !self.is_private? || user == self.account
   end
 
   def is_default=(value)
     self[:is_default] = value
     return unless is_default?
-    Spree::Wishlist.where(is_default: true, user_id: user_id).where.not(id: id).update_all(is_default: false)
+    Spree::Wishlist.where(is_default: true, account_id: account_id).where.not(id: id).update_all(is_default: false)
   end
 
   def is_public?
@@ -35,6 +35,6 @@ class Spree::Wishlist < ActiveRecord::Base
 
   def set_access_hash
     random_string = SecureRandom.hex(16)
-    self.access_hash = Digest::SHA1.hexdigest("--#{user_id}--#{random_string}--#{Time.now}--")
+    self.access_hash = Digest::SHA1.hexdigest("--#{account_id}--#{random_string}--#{Time.now}--")
   end
 end
