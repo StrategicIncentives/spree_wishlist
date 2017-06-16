@@ -30,12 +30,12 @@
     <tr class="<%= cycle('', 'alt') %>">
     <% if @wishlist.account == spree_current_user %>
       <td>
-        <p><%= link_to Spree.t(:remove_from_wishlist), wish, method: :delete, class: 'btn btn-danger' %></p>
+        <p><%= link_to Spree.t(:remove_from_wishlist), wish, method: :delete, id: "remove_wish_#{wish.id}", class: 'btn btn-danger' %></p>
         <%= form_for :order, url: populate_orders_url do |f| %>
           <%= hidden_field_tag 'variant_id', variant.id, size: 3 %>
           <%= Spree.t(:quantity) %>
           <%= number_field_tag 'quantity', wish.quantity, size: 3 %>
-          <%= link_to Spree.t(:add_to_cart), '#', onclick: '$(this).parent().submit(); return false;', class: 'btn btn-success' %>
+          <%= link_to Spree.t(:add_to_cart), '#', onclick: "$(this).parent().submit(); $(#remove_wish_#{wish.id}).click(); return false;", class: 'btn btn-success' %>
         <% end %>
         <% if spree_current_user.wishlists.count > 1 %>
           <%= Spree.t(:move_to_another_wishlist) %>:
