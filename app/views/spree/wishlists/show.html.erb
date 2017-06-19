@@ -1,10 +1,12 @@
 <div id="wishlist_header">
   <h1><%= @wishlist.name %></h1>
-  <% if @wishlist.account == spree_current_user %>
-    <div id="manage_wishlist_links">
-      <%= link_to Spree.t(:edit_wishlist), edit_wishlist_path(@wishlist), class: 'button' %>
-    </div>
-    <div><%= render partial: 'accessibility' %></div>
+  <% if false %>
+    <% if @wishlist.account == spree_current_user %>
+      <div id="manage_wishlist_links">
+        <%= link_to Spree.t(:edit_wishlist), edit_wishlist_path(@wishlist), class: 'button' %>
+      </div>
+      <div><%= render partial: 'accessibility' %></div>
+    <% end -%>
   <% end -%>
 </div>
 <table id="wishlist" class="table table-bordered table-hover">
@@ -16,7 +18,7 @@
       <th><%= Spree.t(:item_view) %></th>
       <th><%= Spree.t(:item_description) %></th>
       <th><%= Spree.t(:availability) %></th>
-      <th><%= Spree.t(:date_added) %></th>
+      <th><%#= Spree.t(:date_added) %></th>
       <th><%= Spree.t(:price) %></th>
       <th><%= Spree.t(:quantity) %></th>
       <th><%= Spree.t(:total) %></th>
@@ -30,7 +32,7 @@
     <tr class="<%= cycle('', 'alt') %>">
     <% if @wishlist.account == spree_current_user %>
       <td>
-        <p><%= link_to Spree.t(:remove_from_wishlist), wish, method: :delete, id: "remove_wish_#{wish.id}", class: 'btn btn-danger' %></p>
+        <p><%= link_to Spree.t(:remove_from_wishlist), wish, method: :delete, id: "remove_wish_#{wish.id}", class: 'btn btn-default' %></p>
         <%= form_for :order, url: populate_orders_url do |f| %>
           <%= hidden_field_tag 'variant_id', variant.id, size: 3 %>
           <%= Spree.t(:quantity) %>
@@ -63,7 +65,7 @@
         <%= variant.can_supply? ? Spree.t(:in_stock) : Spree.t(:out_of_stock) %>
       </td>
       <td>
-        <%= wish.created_at.strftime '%m/%d/%Y' %>
+        <%#= wish.created_at.strftime '%m/%d/%Y' %>
       </td>
       <td>
         <%= display_price(variant) %>
@@ -87,8 +89,11 @@
   </tbody>
 </table>
 <div class="footer_links" data-hook="wishlist_footer_links">
-<% if @wishlist.account == spree_current_user %>
-  <%= link_to Spree.t(:create_new_wishlist), new_wishlist_path, class: 'btn btn-default' %>
+
+<% if false %>
+  <% if @wishlist.account == spree_current_user %>
+    <%= link_to Spree.t(:create_new_wishlist), new_wishlist_path, class: 'btn btn-default' %>
+  <% end -%>
 <% end -%>
 <%= link_to Spree.t(:continue_shopping), products_path, class: 'btn btn-default' %>
 <% if respond_to?(:email_to_friend_url) %>
