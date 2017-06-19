@@ -35,7 +35,7 @@
           <%= hidden_field_tag 'variant_id', variant.id, size: 3 %>
           <%= Spree.t(:quantity) %>
           <%= number_field_tag 'quantity', wish.quantity, size: 3 %>
-          <%= link_to Spree.t(:add_to_cart), '#', onclick: "$(this).parent().submit(); $(\"#remove_wish_#{wish.id}\").click(); return false;", class: 'btn btn-success' %>
+          <%= link_to Spree.t(:add_to_cart), '#', onclick: "$(this).parent().submit(); return false;", class: 'btn btn-success' %>
         <% end %>
         <% if spree_current_user.wishlists.count > 1 %>
           <%= Spree.t(:move_to_another_wishlist) %>:
