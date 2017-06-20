@@ -74,12 +74,14 @@
       </td>
       <td>
         <%= form_for wish do |f| %>
-          <%= f.number_field :quantity %>
+          <%= f.number_field :quantity, class: "small-input" %>
           <%= f.submit Spree.t('actions.save'), class: 'btn btn-info '  %>
         <% end %>
       </td>
       <td>
-        <%= wish.display_total %>
+        <p style="nowrap">
+          <%= wish.display_total %>
+        </p>
       </td>
     </tr>
     <% end -%>
